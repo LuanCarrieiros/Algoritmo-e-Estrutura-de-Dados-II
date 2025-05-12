@@ -6,16 +6,18 @@
 
 ## 🚀 Exercícios Principais
 
-| Exercício | Linguagem | Abordagem             | Descrição                                   |
-| --------- | --------- | --------------------- | ------------------------------------------- |
-| Q01 & Q10 | Java      | Iterativa & Recursiva | Verificação de palíndromos                  |
-| Q02 & Q11 | C         | Iterativa & Recursiva | Verificação de palíndromos                  |
-| Q03 & Q12 | Java      | Iterativa & Recursiva | Cifra de César                              |
-| Q04 & Q13 | Java & C  | Iterativa & Recursiva | Alteração aleatória de caracteres           |
-| Q05 & Q14 | Java      | Iterativa & Recursiva | Avaliação de expressões booleanas           |
-| Q06 & Q15 | Java      | Iterativa & Recursiva | Detecção da substring “is”                  |
-| Q07       | Java      | Iterativa             | Conversão de caracteres para entidades HTML |
-| Q08 & Q09 | Java & C  | Iterativa             | Leitura e escrita em arquivos de texto      |
+| Exercício    | Linguagem | Abordagem             | Descrição                                                         |
+| ------------ | --------- | --------------------- | ----------------------------------------------------------------- |
+| Q01 & Q10    | Java      | Iterativa & Recursiva | Verificação de palíndromos                                        |
+| Q02 & Q11    | C         | Iterativa & Recursiva | Verificação de palíndromos                                        |
+| Q03 & Q12    | Java      | Iterativa & Recursiva | Cifra de César                                                    |
+| Q04 & Q13    | Java & C  | Iterativa & Recursiva | Alteração aleatória de caracteres                                 |
+| Q05 & Q14    | Java      | Iterativa & Recursiva | Avaliação de expressões booleanas                                 |
+| Q06 & Q15    | Java      | Iterativa & Recursiva | Detecção da substring “is”                                        |
+| Q07          | Java      | Iterativa             | Baixa HTML de URL e conta de vogais, consoantes e ocorrências de tags |
+| Q08 & Q09    | Java & C  | Iterativa             | Leitura e escrita em arquivos de texto                             |
+
+---
 
 ---
 
