@@ -6,9 +6,9 @@ public class Utils {
      */
     public static boolean isEnd(String text) {
         return text != null && text.length() == 3
-            && text.charAt(0) == 'F'
-            && text.charAt(1) == 'I'
-            && text.charAt(2) == 'M';
+                && text.charAt(0) == 'F'
+                && text.charAt(1) == 'I'
+                && text.charAt(2) == 'M';
     }
 
     /**
