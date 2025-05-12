@@ -9,7 +9,7 @@ public class Q05_SortByName {
     public static void main(String[] args) throws IOException {
         Scanner sc = new Scanner(System.in);
         List<Personagem> personagens = Carregador.carregar("tmp/characters.csv");
-        
+
         // Ler IDs
         List<String> ids = new java.util.ArrayList<>();
         String line;
