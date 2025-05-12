@@ -20,8 +20,8 @@ public class Q15_SortByNameParcial {
 
         // Extrair nomes
         String[] nomes = ids.stream()
-            .map(id -> personagemNameById(personagens, id))
-            .toArray(String[]::new);
+                .map(id -> personagemNameById(personagens, id))
+                .toArray(String[]::new);
 
         // Ordena apenas top 10 nomes (seleção parcial)
         SortUtils.selecaoParcial(nomes, 10);
@@ -30,18 +30,18 @@ public class Q15_SortByNameParcial {
         for (int i = 0; i < Math.min(10, nomes.length); i++) {
             String nome = nomes[i];
             personagens.stream()
-                .filter(p -> p.getName().equals(nome))
-                .findFirst()
-                .ifPresent(Personagem::imprimir);
+                    .filter(p -> p.getName().equals(nome))
+                    .findFirst()
+                    .ifPresent(Personagem::imprimir);
         }
         sc.close();
     }
 
     private static String personagemNameById(List<Personagem> list, String id) {
         return list.stream()
-                   .filter(p -> p.getId().equals(id))
-                   .findFirst()
-                   .map(Personagem::getName)
-                   .orElse("");
+                .filter(p -> p.getId().equals(id))
+                .findFirst()
+                .map(Personagem::getName)
+                .orElse("");
     }
 }
