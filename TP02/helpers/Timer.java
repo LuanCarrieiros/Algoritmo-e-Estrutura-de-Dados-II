@@ -6,7 +6,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
- * Timer para contagem de comparações, movimentações e tempo de execução (precisão de microssegundos).
+ * Timer para contagem de comparações, movimentações e tempo de execução
+ * (precisão de microssegundos).
  *
  * Os arquivos de log serão salvos na pasta "logs/" do projeto.
  */
@@ -44,9 +45,8 @@ public class Timer {
         String fullPath = "logs/" + logFileName;
         try (PrintWriter writer = new PrintWriter(new FileWriter(fullPath))) {
             writer.printf(
-                "Matricula: 816676\tTempo de execucao: %.6f\tNumero de comparacoes: %d\tNumero de movimentacoes: %d%n",
-                elapsedSeconds, comparacoes, movimentacoes
-            );
+                    "Matricula: 816676\tTempo de execucao: %.6f\tNumero de comparacoes: %d\tNumero de movimentacoes: %d%n",
+                    elapsedSeconds, comparacoes, movimentacoes);
         } catch (IOException e) {
             e.printStackTrace();
         }
