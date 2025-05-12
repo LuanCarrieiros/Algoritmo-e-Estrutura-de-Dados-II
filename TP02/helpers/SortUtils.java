@@ -189,47 +189,73 @@ public class SortUtils {
     }
 
     private static void quickSortRec(List<Personagem> list, int esq, int dir, int k, Timer t) {
-        if (esq >= dir) return;
+        if (esq >= dir)
+            return;
         int i = esq, j = dir;
         Personagem pivot = list.get((esq + dir) / 2);
         while (i <= j) {
             while (true) {
                 t.comparacao();
-                if (Utils.desempateHouse(pivot, list.get(i)) > 0) i++;
-                else break;
+                if (Utils.desempateHouse(pivot, list.get(i)) > 0)
+                    i++;
+                else
+                    break;
             }
             while (true) {
                 t.comparacao();
-                if (Utils.desempateHouse(pivot, list.get(j)) < 0) j--;
-                else break;
+                if (Utils.desempateHouse(pivot, list.get(j)) < 0)
+                    j--;
+                else
+                    break;
             }
             if (i <= j) {
                 Personagem tmp = list.get(i);
                 list.set(i, list.get(j));
                 list.set(j, tmp);
                 t.movimentacao(3);
-                i++; j--;
+                i++;
+                j--;
             }
         }
-        if (esq < j) quickSortRec(list, esq, j, k, t);
-        if (i < k) quickSortRec(list, i, dir, k, t);
+        if (esq < j)
+            quickSortRec(list, esq, j, k, t);
+        if (i < k)
+            quickSortRec(list, i, dir, k, t);
     }
 
     /** Counting Sort completo */
     public static void countingSort(List<Personagem> list) throws IOException {
         Timer t = new Timer("816676_countingsort.txt");
-        int min= Integer.MAX_VALUE, max=Integer.MIN_VALUE;
-        for(Personagem p:list){ min=Math.min(min,p.getYearOfBirth()); max=Math.max(max,p.getYearOfBirth()); }
-        int range = max-min+1;
-        int[] count = new int[range];
-        for(Personagem p:list) count[p.getYearOfBirth()-min]++;
-        for(int i=1;i<range;i++) count[i]+=count[i-1];
-        Personagem[] sorted = new Personagem[list.size()];
-        for(int i=list.size()-1;i>=0;i--){ int idx=list.get(i).getYearOfBirth()-min; sorted[--count[idx]]=list.get(i); }
-        for(int i=1;i<sorted.length;i++){
-            while(i>0 && sorted[i-1].getYearOfBirth()==sorted[i].getYearOfBirth() && sorted[i-1].getName().compareTo(sorted[i].getName())>0){ t.comparacao(); t.comparacao(); t.movimentacao(3); Personagem tmp=sorted[i-1]; sorted[i-1]=sorted[i]; sorted[i]=tmp; i--; }
+        int min = Integer.MAX_VALUE, max = Integer.MIN_VALUE;
+        for (Personagem p : list) {
+            min = Math.min(min, p.getYearOfBirth());
+            max = Math.max(max, p.getYearOfBirth());
         }
-        for(int i=0;i<list.size();i++) list.set(i,sorted[i]);
+        int range = max - min + 1;
+        int[] count = new int[range];
+        for (Personagem p : list)
+            count[p.getYearOfBirth() - min]++;
+        for (int i = 1; i < range; i++)
+            count[i] += count[i - 1];
+        Personagem[] sorted = new Personagem[list.size()];
+        for (int i = list.size() - 1; i >= 0; i--) {
+            int idx = list.get(i).getYearOfBirth() - min;
+            sorted[--count[idx]] = list.get(i);
+        }
+        for (int i = 1; i < sorted.length; i++) {
+            while (i > 0 && sorted[i - 1].getYearOfBirth() == sorted[i].getYearOfBirth()
+                    && sorted[i - 1].getName().compareTo(sorted[i].getName()) > 0) {
+                t.comparacao();
+                t.comparacao();
+                t.movimentacao(3);
+                Personagem tmp = sorted[i - 1];
+                sorted[i - 1] = sorted[i];
+                sorted[i] = tmp;
+                i--;
+            }
+        }
+        for (int i = 0; i < list.size(); i++)
+            list.set(i, sorted[i]);
         t.logAndReset();
     }
 }
