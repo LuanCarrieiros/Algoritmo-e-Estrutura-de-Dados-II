@@ -28,8 +28,8 @@ public class Q16_SortByDateOfBirthParcial {
 
         // Imprime os 10 primeiros ordenados
         subset.stream()
-              .limit(10)
-              .forEach(Personagem::imprimir);
+                .limit(10)
+                .forEach(Personagem::imprimir);
 
         sc.close();
     }
