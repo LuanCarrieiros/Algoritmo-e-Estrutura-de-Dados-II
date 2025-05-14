@@ -9,6 +9,7 @@ Este repositório contém o **Trabalho Prático 2 (TP02)** da disciplina Algorit
 * Implementar buscas sequenciais com registro de estatísticas.
 * Desenvolver e comparar algoritmos de ordenação: Selection, Insertion, Heap, Counting, Merge e Quick Parcial.
 * Instrumentar o código para medir tempo de execução, número de comparações e movimentações.
+* Os códigos em C ainda serão postados. :)
 
 ---
 
