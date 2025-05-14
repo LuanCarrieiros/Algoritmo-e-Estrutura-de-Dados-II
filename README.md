@@ -14,6 +14,7 @@ Este repositório reúne os quatro Trabalhos Práticos (TP) da disciplina AED2, 
 
 | Pasta   | Descrição curta                                                              |
 | ------- | ---------------------------------------------------------------------------- |
+|Aquecimento| Aquecimentos de lógica que estavam no verde                                |
 | **TP1** | Lógica e Recursão: palíndromos, álgebra booleana, aprofundamento em recursão |
 | **TP2** | Ordenação Interna: Selection, Insertion, Merge, Quick, Heap                  |
 | **TP3** | Estruturas Lineares: Pilha, Fila, Lista Simples e Duplamente Ligada          |
