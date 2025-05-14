@@ -9,24 +9,31 @@ Este repositório contém o **Trabalho Prático 2 (TP02)** da disciplina Algorit
 * Implementar buscas sequenciais com registro de estatísticas.
 * Desenvolver e comparar algoritmos de ordenação: Selection, Insertion, Heap, Counting, Merge e Quick Parcial.
 * Instrumentar o código para medir tempo de execução, número de comparações e movimentações.
-* Obs: os códigos em C ainda serão upados.
 
 ---
 
 ## 📂 Conteúdo
 
-| Questão | Arquivo                             | Algoritmo              | Descrição                                          |
-| ------- | ----------------------------------- | ---------------------- | -------------------------------------------------- |
-| Q01     | `Q01_SearchById.java`               | Busca Sequencial       | Pesquisa por ID até `FIM`.                         |
-| Q03     | `Q03_SearchByName.java`             | Busca Sequencial       | Pesquisa por nome até `FIM` e log de comparações.  |
-| Q05     | `Q05_SortByName.java`               | Selection Sort         | Ordenação completa por nome.                       |
-| Q07     | `Q07_SortByDateOfBirth.java`        | Insertion Sort         | Ordenação completa por data de nascimento.         |
-| Q09     | `Q09_SortByHairColour.java`         | Heap Sort              | Ordenação completa por cor de cabelo.              |
-| Q11     | `Q11_SortByYear.java`               | Counting Sort          | Ordenação completa por ano de nascimento.          |
-| Q13     | `Q13_SortByActorName.java`          | Merge Sort             | Ordenação completa por nome do ator.               |
-| Q15     | `Q15_SortByNameParcial.java`        | Selection Sort Parcial | Ordenação parcial (top 10) por nome.               |
-| Q16     | `Q16_SortByDateOfBirthParcial.java` | Insertion Sort Parcial | Ordenação parcial (top 10) por data de nascimento. |
-| Q18     | `Q18_SortByHouse.java`              | Quick Sort Parcial     | Ordenação parcial por casa (k = lista.size()).     |
+| Questão | Linguagem | Arquivo                      | Algoritmo                 | Descrição                                         |
+| ------- | --------- | ---------------------------- | ------------------------- | ------------------------------------------------- |
+| Q01     | Java      | `Q01_SearchById.java`        | Busca Sequencial          | Pesquisa por ID até `FIM`.                        |
+| Q02     | C         | `Q02_Registro.c`             | Registro & struct         | Leitura e impressão de structs.                   |
+| Q03     | Java      | `Q03_SearchByName.java`      | Busca Sequencial          | Pesquisa por nome até `FIM` e log de comparações. |
+| Q04     | C         | `Q04_BinarySearch.c`         | Busca Binária             | Pesquisa em vetor ordenado.                       |
+| Q05     | Java      | `Q05_SortByName.java`        | Selection Sort            | Ordenação completa por nome.                      |
+| Q06     | C         | `Q06_SelectionRec.c`         | Selection Sort Recursivo  | Ordenação recursiva por seleção.                  |
+| Q07     | Java      | `Q07_SortByDOB.java`         | Insertion Sort            | Ordenação completa por data de nascimento.        |
+| Q08     | C         | `Q08_Shellsort.c`            | Shellsort                 | Ordenação por gaps.                               |
+| Q09     | Java      | `Q09_SortByHairColour.java`  | Heap Sort                 | Ordenação completa por cor de cabelo.             |
+| Q10     | C         | `Q10_Quicksort.c`            | Quicksort                 | Ordenação rápida interna.                         |
+| Q11     | Java      | `Q11_SortByYear.java`        | Counting Sort             | Ordenação completa por ano.                       |
+| Q12     | C         | `Q12_Bubble.c`               | Bubble Sort               | Ordenação por bolha.                              |
+| Q13     | Java      | `Q13_SortByActorName.java`   | Merge Sort                | Ordenação completa por nome do ator.              |
+| Q14     | C         | `Q14_RadixSort.c`            | Radix Sort                | Ordenação por dígitos.                            |
+| Q15     | Java      | `Q15_SortByNameParcial.java` | Selection Sort Parcial    | Top 10 por nome.                                  |
+| Q16     | Java      | `Q16_InsertionParcial.java`  | Insertion Sort Parcial    | Top 10 por data de nascimento.                    |
+| Q17     | C         | `Q17_HeapPartial.c`          | Heap Sort Parcial (top k) | Top k por heap.                                   |
+| Q18     | Java      | `Q18_SortByHouse.java`       | Quick Sort Parcial        | Ordenação parcial (k = lista.size()).             |
 
 ---
 
