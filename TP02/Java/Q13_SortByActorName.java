@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class Q13_SortByActorName {
     public static void main(String[] args) throws IOException {
         Scanner sc = new Scanner(System.in);
-        List<Personagem> personagens = Carregador.carregar("java/tmp/characters.csv");
+        List<Personagem> personagens = Carregador.carregar("tmp/characters.csv");
 
         // Ler IDs até "FIM"
         List<Personagem> subset = new java.util.ArrayList<>();
