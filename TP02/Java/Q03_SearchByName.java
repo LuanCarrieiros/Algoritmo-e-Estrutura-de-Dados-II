@@ -10,7 +10,7 @@ import Java.helpers.SearchUtils;
 public class Q03_SearchByName {
     public static void main(String[] args) throws IOException {
         Scanner sc = new Scanner(System.in);
-        List<Personagem> personagens = Carregador.carregar("java/tmp/characters.csv");
+        List<Personagem> personagens = Carregador.carregar("tmp/characters.csv");
         SearchUtils.searchByName(personagens, sc);
         sc.close();
     }
