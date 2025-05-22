@@ -11,7 +11,7 @@ import Java.helpers.SearchUtils;
 public class Q01_SearchById {
     public static void main(String[] args) throws IOException {
         Scanner sc = new Scanner(System.in);
-        List<Personagem> personagens = Carregador.carregar("java/tmp/characters.csv");
+        List<Personagem> personagens = Carregador.carregar("tmp/characters.csv");
         SearchUtils.searchById(personagens, sc);
         sc.close();
     }
