@@ -9,7 +9,7 @@ import Java.helpers.SortUtils;
 public class Q09_SortByHairColour {
     public static void main(String[] args) throws IOException {
         Scanner sc = new Scanner(System.in);
-        List<Personagem> personagens = Carregador.carregar("java/tmp/characters.csv");
+        List<Personagem> personagens = Carregador.carregar("tmp/characters.csv");
 
         List<Personagem> subset = new java.util.ArrayList<>();
         String line;
