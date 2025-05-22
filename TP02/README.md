@@ -43,7 +43,7 @@ Este repositório contém o **Trabalho Prático 2 (TP02)** da disciplina Algorit
 No terminal, na pasta raiz `TP02/`, execute:
 
 ```bash
-javac -d . helpers/*.java *.java
+javac Java/*.java Java/helpers/*.java
 ```
 
 * O parâmetro `-d .` cria as pastas de pacote para as classes em `helpers/`.
