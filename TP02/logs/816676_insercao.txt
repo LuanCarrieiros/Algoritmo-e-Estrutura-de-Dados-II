@@ -1,1 +1,0 @@
-Matricula: 816676	Tempo de execucao: 0,000639	Numero de comparacoes: 1042	Numero de movimentacoes: 986
