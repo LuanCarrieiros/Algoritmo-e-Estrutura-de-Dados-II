@@ -8,12 +8,12 @@
 typedef struct List
 {
     String *element;
-    int size;
+    size_t size;
 } List;
 
 // ---------------------------- MÉTODOS DA LISTA --------------------------- //
 void init_list(size_t size, List* list);
-void add_listEnd(String element, List* list, size_t size);
+void add_listEnd( String element, List* list, size_t size_limit);
 void display_List(List* list);
 void free_List (List* list);
 
