@@ -12,7 +12,7 @@
 void questaoBubbleSort()
 {
     int size = 0;
-    ListPersonagem List = createList("/tmp/characters.csv");
+    ListPersonagem List = createList("./tmp/characters.csv");
     Personagem *personagens = getFragmentsOfCharacter(&List, &size);
     Timer timer = newTimer();
     Log log = newLog();
@@ -43,7 +43,7 @@ void questaoBubbleSort()
 }
 
 // ========================================= MAIN ========================================= //
-int main (int argc, char const *argv[])
+int main (int /*argc*/, char const * /*argv*/[])
 {
     questaoBubbleSort();
     return 0;
