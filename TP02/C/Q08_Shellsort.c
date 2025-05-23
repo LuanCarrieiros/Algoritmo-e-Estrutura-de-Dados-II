@@ -13,7 +13,7 @@ void questaoShellSort()
 {
     int size = 0;
 
-    ListPersonagem List = createList("/tmp/characters.csv");
+    ListPersonagem List = createList("./tmp/characters.csv");
     Personagem *shell = getFragmentsOfCharacter(&List, &size);
 
     Timer timer = newTimer();
@@ -45,7 +45,7 @@ void questaoShellSort()
 }
 
 // ========================================= MAIN ========================================= //
-int main (int argc, char const *argv[])
+int main (int /*argc*/, char const * /*argv*/[])
 {
     questaoShellSort();
     return 0;
