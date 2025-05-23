@@ -4,6 +4,7 @@
 #include "../include/common.h" // Para String, StringArray, bool
 #include "../include/list.h"   // Para List
 #include "../include/personagem.h" // Para Personagem (usada em read)
+#include "../include/linked_list.h"
 
 // --------------------------------------- MANIPULAÇÃO DE STRINGS ---------------------------------- //
 
