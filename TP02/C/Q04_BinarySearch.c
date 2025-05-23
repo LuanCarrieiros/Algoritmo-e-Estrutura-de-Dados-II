@@ -15,7 +15,7 @@ void questaoPesquisaBinaria()
     int size = 0;
     char text[LINE_SIZE]; // Use LINE_SIZE para o buffer de leitura de entrada
 
-    ListPersonagem List = createList("/tmp/characters.csv");
+    ListPersonagem List = createList("./tmp/characters.csv");
     StringArray personagensID = fillFieldWithIds(&size); // Este array precisa estar ordenado para binarySearch
 
     // IMPORTANTE: Para binarySearch funcionar corretamente com IDs, o array personagensID DEVE estar ordenado.
@@ -77,7 +77,7 @@ void questaoPesquisaBinaria()
 }
 
 // ========================================= MAIN ========================================= //
-int main (int argc, char const *argv[])
+int main (int /*argc*/, char const * /*argv*/[])
 {
     questaoPesquisaBinaria();
     return 0;
