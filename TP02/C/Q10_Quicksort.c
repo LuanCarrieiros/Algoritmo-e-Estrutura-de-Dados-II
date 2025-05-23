@@ -12,7 +12,7 @@
 void questaoQuickSort()
 {
     int size = 0;
-    ListPersonagem List = createList("/tmp/characters.csv");
+    ListPersonagem List = createList("./tmp/characters.csv");
     Personagem *personagens = getFragmentsOfCharacter(&List, &size);
     Timer timer = newTimer();
     Log log = newLog();
@@ -43,7 +43,7 @@ void questaoQuickSort()
 }
 
 // ========================================= MAIN ========================================= //
-int main (int argc, char const *argv[])
+int main (int /*argc*/, char const * /*argv*/[])
 {
     questaoQuickSort();
     return 0;
