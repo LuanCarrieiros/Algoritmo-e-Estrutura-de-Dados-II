@@ -93,14 +93,14 @@ StringArray split(String str, char delimitador)
     {
         char *token;
         char *rest = str_copy;
-        int i = 0;
+        size_t i = 0;
 
         while ((token = strtok_r(rest, &delimitador, &rest))) { // Usando strtok_r para reentrância
             array[i] = (String) malloc (strlen(token) + 1); // Aloca memória para cada token
             if (array[i] == NULL) {
                 fprintf(stderr, "Erro de alocação de memória na funcao split. ALOC 2\n");
                 // Libera o que já foi alocado antes de sair
-                for (int k = 0; k < i; k++) {
+                for (size_t k = 0; k < i; k++) {
                     free(array[k]);
                 }
                 free(array);
@@ -117,7 +117,7 @@ StringArray split(String str, char delimitador)
             array[i] = (String)malloc(1); // Aloca espaço para uma string vazia
             if (array[i] == NULL) {
                  fprintf(stderr, "Erro de alocação de memória na funcao split. ALOC 3\n");
-                for (int k = 0; k < i; k++) {
+                for (size_t k = 0; k < i; k++) {
                     free(array[k]);
                 }
                 free(array);
@@ -228,14 +228,14 @@ void remove_char(String str, char removee)
 */
 ListPersonagem createList(String FileName)
 {
-    // abrindo o arquivo
+    printf("DEBUG: Tentando abrir o arquivo: %s\n", FileName); 
     FILE *arq_file = fopen(FileName, "r");
-    // teste se foi aberto corretamente
     if (arq_file == NULL)
     {
-        printf("Erro ao abrir o arquivo '%s'.\n", FileName);
+        printf("ERRO FATAL: Nao foi possivel abrir o arquivo '%s'. Verifique o caminho e permissoes.\n", FileName); // <-- Mude esta linha para ser mais descritiva
         exit(EXIT_FAILURE);
     }
+    printf("DEBUG: Arquivo '%s' aberto com sucesso.\n", FileName); 
     ListPersonagem List1;
     Personagem personagem_temp_sentinela; // Usada para o nó sentinela
     reset(&personagem_temp_sentinela); // Inicializa para evitar lixo
@@ -255,73 +255,98 @@ ListPersonagem createList(String FileName)
     }
 
     fclose(arq_file);
+    printf("DEBUG: createList concluida. Total de personagens na lista: %d\n", getSize(&List1)); 
     return List1;
 }
 
 // ======================================= GET FRAGMETNS OF CHARACTER ======================================= //
-// Recebe uma lista e um tamanho como parametro e retorna um vetor de personagens menor
-/* @param List: Lista de personagens
- * @param size: tamanho do vetor
- * @return: vetor de personagens
-*/
 Personagem* getFragmentsOfCharacter(ListPersonagem *List, int *size)
 {
-    // Tamanho máximo do array que pode ser lido é 27 pela tabela do Readme
+    printf("DEBUG: Entrando em getFragmentsOfCharacter para ler IDs.\n"); 
     Personagem *personagemShell = (Personagem*) malloc(27 * sizeof(Personagem));
     if (personagemShell == NULL) {
         fprintf(stderr, "Erro de alocação de memória para personagemShell.\n");
         exit(EXIT_FAILURE);
     }
 
-    char text[300];
-    scanf("%99s", text); // Limita a leitura para evitar estouro de buffer
+    char text[LINE_SIZE]; // Use LINE_SIZE para o buffer de leitura de entrada
+    
+    // Leitura do primeiro ID/comando
+    if (scanf(" %[^\r\n]%*c", text) != 1) {
+        printf("DEBUG: scanf inicial falhou ou EOF. Retornando array vazio.\n"); 
+        *size = 0; // Se não leu nada, o size é 0
+        return personagemShell; // Retorna array vazio
+    }
+
     int i = 0;
-    while(!equals(text, "FIM") && i < 27) // Adiciona limite para evitar estouro do array
+    while(!equals(text, "FIM") && i < 27)
     {
         Personagem found_personagem = getElementByID(text, List);
-        if (strcmp(found_personagem.id, "NOT_FOUND") != 0) { // Verifica se a personagem foi realmente encontrada
+        if (strcmp(found_personagem.id, "NOT_FOUND") != 0) {
             personagemShell[i] = found_personagem;
             i++;
         } else {
-            fprintf(stderr, "Personagem com ID '%s' não encontrada.\n", text);
+            fprintf(stderr, "Personagem com ID '%s' nao encontrada (getFragmentsOfCharacter).\n", text); 
         }
-        scanf("%99s", text);
+        printf("DEBUG: Leu entrada '%s'. (Total lido: %d)\n", text, i); 
+        
+        // Leitura dos IDs/comandos seguintes
+        if (scanf(" %[^\r\n]%*c", text) != 1) {
+            if (feof(stdin) || ferror(stdin)) {
+                printf("DEBUG: EOF ou erro na leitura do scanf subsequente. Encerrando leitura de IDs.\n"); 
+                break; // Se for EOF ou erro, sair do loop
+            }
+        }
     }
     *size = i;
+    printf("DEBUG: getFragmentsOfCharacter concluida. Total de IDs lidos: %d\n", *size); 
     return personagemShell;
 }
 
 StringArray fillFieldWithIds(int *size)
 {
+    printf("DEBUG: Entrando em fillFieldWithIds para ler IDs.\n"); 
     StringArray field = (StringArray) malloc (27 * sizeof(String));
     if (field == NULL) {
         fprintf(stderr, "Erro de alocação de memória para field em fillFieldWithIds.\n");
         exit(EXIT_FAILURE);
     }
 
-    for (int i = 0; i < 27; i++)
+    for (int k = 0; k < 27; k++) // Use 'k' para não conflitar com 'i' mais abaixo
     {
-        field[i] = (String) malloc (FIT_SIZE * sizeof(char));
-        if (field[i] == NULL) {
-             fprintf(stderr, "Erro de alocação de memória para field[%d] em fillFieldWithIds.\n", i);
-             // Liberar o que foi alocado antes de sair
-             for(int k = 0; k < i; k++) free(field[k]);
+        field[k] = (String) malloc (FIT_SIZE * sizeof(char));
+        if (field[k] == NULL) {
+             fprintf(stderr, "Erro de alocação de memória para field[%d] em fillFieldWithIds.\n", k);
+             for(int j = 0; j < k; j++) free(field[j]); // Use 'j' aqui
              free(field);
              exit(EXIT_FAILURE);
         }
     }
 
     int i = 0;
-    char text[300];
-    scanf("%99s", text);
+    char text[LINE_SIZE]; // Use LINE_SIZE
 
-    while(!equals(text, "FIM") && i < 27) // Adiciona limite para evitar estouro do array
+    if (scanf(" %[^\r\n]%*c", text) != 1) {
+        printf("DEBUG: scanf inicial falhou ou EOF em fillFieldWithIds. Retornando array vazio.\n"); 
+        *size = 0;
+        return field;
+    }
+
+    while(!equals(text, "FIM") && i < 27)
     {
         strcpy(field[i], text);
         i++;
-        scanf("%99s", text);
+        printf("DEBUG: fillFieldWithIds leu entrada '%s'. (Total lido: %d)\n", text, i); 
+
+        if (scanf(" %[^\r\n]%*c", text) != 1) {
+            if (feof(stdin) || ferror(stdin)) {
+                printf("DEBUG: EOF ou erro no scanf subsequente em fillFieldWithIds. Encerrando leitura.\n"); 
+                break;
+            }
+        }
     }
     *size = i;
+    printf("DEBUG: fillFieldWithIds concluida. Total de IDs lidos: %d\n", *size); 
     return field;
 }
 
