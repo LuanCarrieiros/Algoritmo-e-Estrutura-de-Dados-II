@@ -16,10 +16,9 @@ double TimerTime(Timer* timer) {
 }
 
 Timer newTimer() {
-	Timer timer;
-	timer.Start = TimerStart;
-	timer.Stop = TimerStop;
-	timer.Time = TimerTime;
+	// ATENÇÃO: Corrigido para inicializar todos os campos e evitar o warning "missing initializer"
+	Timer timer = { .startTime = 0, .endTime = 0, .totalTime = 0,
+                    .Start = TimerStart, .Stop = TimerStop, .Time = TimerTime };
 	return timer;
 }
 
@@ -52,8 +51,8 @@ void RegistroOrdenacao(literal fileName, Timer timer, Log log) {
 }
 
 Log newLog() {
-	Log log = { 0, 0 };
-	log.RegistroPesquisa = RegistroPesquisa;
-	log.RegistroOrdenacao = RegistroOrdenacao;
+	// ATENÇÃO: Corrigido para inicializar todos os campos e evitar o warning "missing initializer"
+	Log log = { .comparacoes = 0, .movimentacoes = 0,
+                .RegistroPesquisa = RegistroPesquisa, .RegistroOrdenacao = RegistroOrdenacao };
 	return log;
 }
