@@ -47,17 +47,10 @@ void read(Personagem *personagem, String line)
     personagem->wizard = (tratamento[17][0] == 'V') ? 1 : 0; // operador ternário para atribuir 1 ou 0 ao valor booleano
 
     // tratamento da lista de nomes alternativos
-    // A alocação já é feita no reset. Aqui, apenas reutilizamos/limpamos.
-    // Se for alocar novamente, liberar a anterior para evitar vazamento.
-    // Para evitar duplo free/vazamento, garanta que reset é chamado antes.
     if (personagem->alternative_names == NULL) { // Garante que a lista está inicializada
         personagem->alternative_names = (List*) malloc (sizeof(List));
-        init_list(15, personagem->alternative_names);
+        init_list(50, personagem->alternative_names);
     } else {
-        // Limpar lista existente se read for chamado múltiplas vezes para o mesmo Personagem
-        // free_List(personagem->alternative_names); // Se free_List liberar a própria struct List
-        // init_list(15, personagem->alternative_names); // E aqui inicializaria novamente
-        // Ou apenas resetar o size para 0 se o malloc das strings internas for mantido
         personagem->alternative_names->size = 0;
     }
 
@@ -73,14 +66,14 @@ void read(Personagem *personagem, String line)
 
     for(size_t i = 0; i < countD; i++)
     {
-        String trimmed_name = trim(altname[i]); // trim retorna a própria string modificada ou uma nova
-        if(strlen(trimmed_name) > 0) // Verifica se a string não está vazia após o trim
+        String trimmed_name = trim(altname[i]);
+        if(strlen(trimmed_name) > 0)
         {
-            add_listEnd(trimmed_name, personagem->alternative_names, countD);
+            add_listEnd(trimmed_name, personagem->alternative_names, countD); // countD deve ser o size_t
         }
     }
     // Libere altname após o uso
-    for (size_t i = 0; i < countD; i++) {
+    for (size_t i = 0; i < countD; i++) { // Use size_t para 'i'
         free(altname[i]);
     }
     free(altname);
@@ -89,7 +82,7 @@ void read(Personagem *personagem, String line)
     // tratamento da lista de atores alternativos
     if (personagem->alternative_actors == NULL) { // Garante que a lista está inicializada
         personagem->alternative_actors = (List*) malloc (sizeof(List));
-        init_list(15, personagem->alternative_actors);
+        init_list(50, personagem->alternative_actors);
     } else {
         personagem->alternative_actors->size = 0;
     }
@@ -102,24 +95,26 @@ void read(Personagem *personagem, String line)
     remove_char(aux2, ']');
     remove_char(aux2, '\'');
 
-    int countD2 = countDelim(',', aux2);
+    // Mude countD2 para size_t aqui:
+    size_t countD2 = countDelim(',', aux2); // <--- Mude de int para size_t
     StringArray altactor = split(aux2, ',');
 
-    for(size_t i = 0; i < countD2; i++)
+    for(size_t i = 0; i < countD2; i++) // Agora 'i' e 'countD2' são ambos size_t
     {
         String trimmed_actor = trim(altactor[i]);
-        if(strlen(trimmed_actor) > 0) { // Verifica se a string não está vazia após o trim
-             add_listEnd(trimmed_actor, personagem->alternative_actors, countD2 );
+        if(strlen(trimmed_actor) > 0) {
+             add_listEnd(trimmed_actor, personagem->alternative_actors, countD2 ); // countD2 deve ser o size_t
         }
     }
     // Libere altactor após o uso
-    for (size_t i = 0; i < countD2; i++) {
+    for (size_t i = 0; i < countD2; i++) { // Use size_t para 'i'
         free(altactor[i]);
     }
     free(altactor);
 
     // Libere tratamento após o uso
-    for (int i = 0; i < countDelim(';', line); i++) { // Use a contagem original de delimitadores para tratamento
+    // countDelim retorna int. Para evitar warning, faça cast ou mude a assinatura se apropriado.
+    for (size_t i = 0; i < (size_t)countDelim(';', line); i++) { // Faça cast para size_t
         free(tratamento[i]);
     }
     free(tratamento);
@@ -129,7 +124,7 @@ void read(Personagem *personagem, String line)
 void print(Personagem personagem)
 {
     printf("[%s ## %s ## {", personagem.id, personagem.name);
-    for(int i = 0; i < personagem.alternative_names->size; i++)
+    for(size_t i = 0; i < personagem.alternative_names->size; i++) 
     {
         if(i == (personagem.alternative_names->size - 1))
         {
