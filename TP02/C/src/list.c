@@ -30,9 +30,10 @@ void init_list(size_t size, List* list)
 @param List = Lista
 @param Elemento = Item a ser adicionado
 */
-void add_listEnd( String element, List* list, size_t size)
+void add_listEnd( String element, List* list, size_t max_size_limit) // Renomeei o parâmetro 'size' para evitar confusão com 'list->size'
 {
-    if(list->size >= size) // VALIDANDO SE O TAMANHO É MENOR QUE O FINAL, PARA INSERIR NO FINAL
+    // Comparando size_t com size_t
+    if(list->size >= max_size_limit) // VALIDANDO SE O TAMANHO É MENOR QUE O FINAL, PARA INSERIR NO FINAL
     {
         printf("Erro ao inserir! Funcao add_listEnd\n");
         exit(1);
@@ -48,6 +49,7 @@ void add_listEnd( String element, List* list, size_t size)
 void display_List(List* list)
 {
     size_t index;
+    // Comparando size_t com size_t
     for(index = 0; index < list->size; index++)
     {
         printf("%s ", list->element[index]);
@@ -60,17 +62,17 @@ void display_List(List* list)
 void free_List (List* list)
 {
     if (list && list->element) {
-        for (int i = 0; i < list->size; i++) { // Iterar até list->size ou o tamanho original alocado se você souber
+        for (size_t i = 0; i < list->size; i++) { // Use size_t para 'i'
             free(list->element[i]);
         }
         free(list->element);
         list->element = NULL;
     }
-    if (list) { // E, finalmente, liberar a própria struct List se ela foi alocada dinamicamente
-        free(list);
-    }
-    // Set size to 0 even if list itself is not freed, indicates empty
     if (list) {
+        // Se a List* foi alocada dinamicamente, ela também deve ser liberada aqui
+        // free(list); // Descomente se a List* em si foi alocada com malloc (ex: em Personagem)
+    }
+    if (list) { // Apenas para ter certeza de resetar o size se a struct em si não for liberada
         list->size = 0;
     }
 }
