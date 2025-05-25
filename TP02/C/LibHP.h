@@ -130,7 +130,7 @@ struct LogHP {
 void RegistroPesquisaHP(literal_hp fileName, TimerHP timer, LogHP log) {
     FILE* file = fopen(fileName, "w");
     if (!file) { perror("LogHP: Erro ao abrir arquivo de log da pesquisa"); return; }
-    fprintf(file, "Matricula: [SUA_MATRICULA_HP]\t"); // Substitua pela sua matrícula
+    fprintf(file, "Matricula: 816676\t"); // Substitua pela sua matrícula
     fprintf(file, "Tempo de execucao: %.6fs\t", timer.GetTimeSeconds(&timer));
     fprintf(file, "Numero de comparacoes: %d\n", log.comparacoes);
     fclose(file);
@@ -138,7 +138,7 @@ void RegistroPesquisaHP(literal_hp fileName, TimerHP timer, LogHP log) {
 void RegistroOrdenacaoHP(literal_hp fileName, TimerHP timer, LogHP log) {
     FILE* file = fopen(fileName, "w");
     if (!file) { perror("LogHP: Erro ao abrir arquivo de log da ordenacao"); return; }
-    fprintf(file, "Matricula: [SUA_MATRICULA_HP]\t"); // Substitua pela sua matrícula
+    fprintf(file, "Matricula: 816676\t"); // Substitua pela sua matrícula
     fprintf(file, "Tempo de execucao: %.6fs\t", timer.GetTimeSeconds(&timer));
     fprintf(file, "Numero de comparacoes: %d\t", log.comparacoes);
     fprintf(file, "Numero de movimentacoes: %d\n", log.movimentacoes);
