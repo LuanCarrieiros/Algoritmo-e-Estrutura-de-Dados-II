@@ -1,0 +1,30 @@
+# Compiled files
+*.class
+*.exe
+*.o
+*.obj
+
+# IDE files
+.vscode/
+.idea/
+*.iml
+
+# System files
+.DS_Store
+Thumbs.db
+*.tmp
+*.temp
+
+# Log files
+*.log
+
+# Backup and temporary directories
+*_backup/
+*_tmp/
+*_old/
+tmp/
+
+# Test output files
+output/
+logs/
+*.out
