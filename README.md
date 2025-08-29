@@ -1,45 +1,70 @@
-<h1 align="center">Algoritmos e Estruturas de Dados II – Projetos Práticos</h1>
+# Algoritmos e Estruturas de Dados II
 
-Este repositório reúne os quatro Trabalhos Práticos (TP) da disciplina AED2, com temas de lógica, ordenação, estruturas lineares e árvores/balanceamento.
+Implementações dos trabalhos práticos da disciplina de Algoritmos e Estruturas de Dados II, desenvolvidos ao longo do semestre para explorar conceitos fundamentais de programação, análise de complexidade e estruturas de dados avançadas.
 
-## 🚀 Objetivos
+## Estrutura do Repositório
 
-* Aplicar noções de complexidade de algoritmos
-* Praticar conceitos de recursão e lógica (palíndromos, álgebra booleana)
-* Implementar e comparar algoritmos de ordenação interna
-* Construir estruturas de dados lineares (pilha, fila, lista)
-* Desenvolver árvores binárias e híbridas, balanceamento e índices (hash, TRIE)
-
-## 📂 Conteúdo dos Trabalhos Práticos
-
-| Pasta   | Descrição curta                                                              |
-| ------- | ---------------------------------------------------------------------------- |
-|Aquecimento| Aquecimentos de lógica que estavam no verde                                |
-| **TP1** | Lógica e Recursão: palíndromos, álgebra booleana, aprofundamento em recursão |
-| **TP2** | Ordenação Interna: Selection, Insertion, Merge, Quick, Heap                  |
-| **TP3** | Estruturas Lineares: Pilha, Fila, Lista Simples e Duplamente Ligada          |
-| **TP4** | Árvores & Balanceamento: AVL, 2-3-4, Red-Black; Tabelas Hash; Árvores TRIE   |
-
-Cada pasta inclui:
-
-* Código-fonte comentado
-* Casos de teste ou exemplos de execução
-* `README.md` local com instruções
-
-## 🛠️ Como Executar
-
-```bash
-git clone https://github.com/LuanCarrieiros/Algoritmo-e-Estrutura-de-Dados-II.git
-cd Algoritmo-e-Estrutura-de-Dados-II/TPx
-# Siga o README.md de cada TP para compilar e executar
+```
+.
+├── Aquecimento/          # Exercícios iniciais de lógica
+├── TP01/                 # Lógica e Recursão
+├── TP02/                 # Algoritmos de Ordenação
+├── TP03/                 # Estruturas de Dados Lineares
+└── TP04/                 # Árvores e Estruturas Avançadas
 ```
 
-## 📋 Tecnologias
+### TP01 - Lógica e Recursão
+Implementação de algoritmos fundamentais utilizando tanto abordagens iterativas quanto recursivas:
+- Verificação de palíndromos
+- Cifra de César
+- Álgebra booleana
+- Manipulação de strings e arquivos
 
-* Linguagens: **Java**, **C**
-* Ferramentas: **JDK (javac)**, **GCC (gcc)**
-* Editor: **VSCode** (compilação e execução diretas via CLI; sem dependência de Maven/Gradle)
+### TP02 - Algoritmos de Ordenação  
+Estudo comparativo de algoritmos de ordenação interna com análise de desempenho:
+- Selection Sort e variações
+- Insertion Sort
+- Merge Sort
+- Quick Sort  
+- Heap Sort
+- Análise de complexidade e logging de performance
 
-## 🤝 Contribuições
+### TP03 - Estruturas de Dados Lineares
+Implementação de estruturas de dados fundamentais:
+- Pilhas (Stack)
+- Filas (Queue) e Filas Circulares
+- Listas Ligadas Simples e Duplamente Ligadas
+- Aplicações práticas das estruturas
 
-Este repositório de projetos acadêmicos acolhe sugestões via **Issues**.
+### TP04 - Árvores e Estruturas Avançadas
+Desenvolvimento de estruturas de dados complexas:
+- Árvores Binárias de Busca
+- Árvores AVL (balanceamento automático)
+- Árvores Red-Black
+- Tabelas Hash
+- Árvores TRIE
+
+## Tecnologias Utilizadas
+
+- **Java** - Linguagem principal para a maioria das implementações
+- **C** - Utilizada em exercícios específicos para demonstrar conceitos de baixo nível
+- **GCC/JDK** - Compiladores utilizados
+
+## Como Executar
+
+1. Clone o repositório:
+```bash
+git clone https://github.com/LuanCarrieiros/Algoritmo-e-Estrutura-de-Dados-II.git
+cd Algoritmo-e-Estrutura-de-Dados-II
+```
+
+2. Navegue até o trabalho prático desejado:
+```bash
+cd TP01  # ou TP02, TP03, TP04
+```
+
+3. Consulte o README específico de cada trabalho para instruções detalhadas de compilação e execução.
+
+## Observações
+
+Este repositório contém trabalhos acadêmicos desenvolvidos para fins educacionais. Cada implementação busca demonstrar a aplicação prática dos conceitos teóricos abordados em sala de aula, com foco na compreensão dos algoritmos e estruturas de dados fundamentais da ciência da computação.
