@@ -3,6 +3,7 @@
 *.exe
 *.o
 *.obj
+bin/
 
 # IDE files
 .vscode/
@@ -28,3 +29,4 @@ tmp/
 output/
 logs/
 *.out
+results.txt
