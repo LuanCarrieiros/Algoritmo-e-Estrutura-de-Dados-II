@@ -1,196 +1,227 @@
 import java.util.Scanner;
 
-public class Q14_AlgebraRec {
+class Q14_AlgebraRec {
     
-    // Método para substituir uma parte da string com outra string de forma recursiva
-    private static String fillingNewSplittedPart(String str, String split, String result, int i) {
-        if (i >= str.length()) {
-            return ""; // Se atingir o final da string, retorna uma string vazia
-        }
+    // Método para substituir uma parte da string com outra string
+    private static String fillingNewSplittedPart(String str, String split, String result) {
+        String newString = ""; // String para armazenar a nova string resultante
+        boolean flag = false; // Flag para indicar se a substring foi encontrada
+        int count = 0; // Contador para verificar se a substring foi encontrada completamente
         
-        // Verifica se a substring split ocorre em str a partir da posição atual
-        if (str.charAt(i) == split.charAt(0) && !isSubstringFound(str, split, i)) {
-            // Se a substring split foi encontrada completamente, substitui com result
-            if (isSubstringFound(str, split, i)) {
-                return result.charAt(0) + fillingNewSplittedPart(str, split, result, i + split.length()); 
+        // Percorre a string str
+        for(int i = 0; i < str.length(); i++) {
+            count = 0; 
+            // Verifica se a substring split ocorre em str
+            if(str.charAt(i) == split.charAt(0) && flag == false) {
+                // Verifica se a substring split ocorre completamente
+                for(int j = 0; j < split.length(); j++) {
+                    if(str.charAt(j + i) == split.charAt(j)) { 
+                        count++; // Incrementa o contador
+                    } else { 
+                        count = 0; 
+                    }
+                }
+                // Se a substring split foi encontrada completamente, substitui com result
+                if(count == split.length()) {
+                    flag = true;
+                    newString += result.charAt(0);
+                    i += count - 1; 
+                } else {
+                    newString += str.charAt(i);
+                }
             } else {
-                return str.charAt(i) + fillingNewSplittedPart(str, split, result, i + 1);
-            }
-        } else {
-            return str.charAt(i) + fillingNewSplittedPart(str, split, result, i + 1);
+                newString += str.charAt(i);
+            } 
         }
+        return newString; // Retorna a nova string resultante
     } 
 
-    // Método auxiliar para verificar se a substring ocorre completamente em str a partir de uma posição específica
-    private static boolean isSubstringFound(String str, String split, int i) {
-        int count = 0;
-        // Verifica se a substring split ocorre completamente
-        for (int j = 0; j < split.length(); j++) {
-            if (str.charAt(j + i) == split.charAt(j)) {
-                count++; // Incrementa o contador
-            } else {
-                count = 0; // Reinicia o contador se não houver correspondência
-            }
-        }
-        return count == split.length(); // Retorna true se a substring for encontrada completamente
-    }
-
-    // Método para resolver operações lógicas unárias de forma recursiva
-    private static String resolvingOperation(String str, int i) {
-        // Valor padrão de retorno
-        String resolved = "1";
+    // Método para resolver operações lógicas unárias
+    private static String resolvingOperation(String str) {
+        String resolved = "1"; // Valor padrão de retorno
         
         // Verifica o tipo de operação lógica
-        if (str.charAt(0) == 38) { // Operação de negação
-            if (i < str.length()) {
-                if (str.charAt(i) == 48) { // Se qualquer caractere for '0', o resultado é '0'
+        if(str.charAt(0) == 38) { // Operação AND
+            for(int i = 0; i < str.length(); i++) {
+                if(str.charAt(i) == 48) { // Se qualquer caractere for '0', o resultado é '0'
                     resolved = "0";
                 }
-                return resolved + resolvingOperation(str, i + 1);
-            }
+            } 
         }
         
-        if (str.charAt(0) == 124) { // Operação de negação
-            if (i < str.length()) {
-                int count = 0;
-                if (str.charAt(i) != 49) { // Conta o número de caracteres diferentes de '1'
+        if(str.charAt(0) == 124) { // Operação OR
+            int count = 0;
+            for(int i = 0; i < str.length(); i++) {
+                if(str.charAt(i) != 49) { // Conta o número de caracteres diferentes de '1'
                     count++;
                 }
-                // Se todos os caracteres forem diferentes de '1', o resultado é '0'
-                if (count == str.length()) {
-                    resolved = "0";
-                }
-                return resolved + resolvingOperation(str, i + 1);
+            }
+            // Se todos os caracteres forem diferentes de '1', o resultado é '0'
+            if(count == str.length()) {
+                resolved = "0";
             }
         }
         
-        if (str.charAt(0) == 33) { // Operação de negação
-            if (i < str.length()) {
-                if (str.charAt(i) == 49) { // Se qualquer caractere for '1', o resultado é '0'
+        if(str.charAt(0) == 33) { // Operação NOT
+            for(int i = 0; i < str.length(); i++) {
+                if(str.charAt(i) == 49) { // Se qualquer caractere for '1', o resultado é '0'
                     resolved = "0";
                 }
-                if (str.charAt(i) == 48) { // Se qualquer caractere for '0', o resultado é '1'
+                if(str.charAt(i) == 48) { // Se qualquer caractere for '0', o resultado é '1'
                     resolved = "1";
                 }
-                return resolved + resolvingOperation(str, i + 1);
             }
         }
         
         return resolved; // Retorna o resultado da operação
     } 
     
-    // Método para obter uma substring até ')' de forma recursiva
-    private static String getSplittedString(String str, int i, String split) {
-        if (i >= str.length()) {
-            return ""; // Se atingir o final da string, retorna uma string vazia
-        }
+    // Método para obter uma substring até ')'
+    private static String getSplittedString(String str) {
+        String split = ""; // String para armazenar a substring
+        boolean finished = false; // Flag para indicar o término da busca
+        int i = 0; // Índice para percorrer a string str
         
-        // Verifica se o caractere atual é o final da substring
-        if (str.charAt(i) == 41) {
-            return split + str.charAt(i); // Adiciona o caractere à substring e retorna
-        } else {
-            return split + str.charAt(i) + getSplittedString(str, i + 1, split); // Adiciona o caractere à substring e continua a busca
-        }
-    } 
+        // Enquanto não terminar a busca
+        while(!finished) {
+            // Verifica se o caractere atual é o final da substring
+            if(str.charAt(i) == 41) {
+                split += str.charAt(i); // Adiciona o caractere à substring
+                finished = true; // Marca o término da busca
+            } else { 
+                split += str.charAt(i); // Adiciona o caractere à substring
+            }
 
-    // Verifica se a expressão está completa de forma recursiva
-    private static boolean isComplete(String str, int i, int count) {
-        if (i >= str.length()) {
-            return count <= 1; // Retorna true se houver no máximo um parêntese aberto
-        }
-        
-        if (str.charAt(i) == 40) { // Se encontrar um parêntese aberto
-            count++; // Incrementa o contador
-        }
-        
-        return isComplete(str, i + 1, count); // Chama recursivamente com o próximo caractere
-    } 
-
-    // Resolve as operações lógicas na expressão de forma recursiva
-    private static String logicalOperations(String str, int i) {
-        String split = "", result = ""; // Strings para armazenar a substring e o resultado da operação
-        
-        // Verifica se a string está vazia ou o índice ultrapassou o tamanho da string
-        if (i >= str.length()) {
-            return ""; // Retorna uma string vazia
-        }
-        
-        split = ""; // Limpa a string split
-        
-        // Verifica se há operações lógicas
-        if (str.charAt(i) == 38 || str.charAt(i) == 124 || str.charAt(i) == 33) {
-            // Obtém a substring a partir do índice atual até o final da string
-            split = getSplittedString(str, i, split);
-            
-            // Se a expressão estiver completa, resolve a operação
-            if (isComplete(split, 0, 0)) {
-                split = getSplittedString(split, 0, ""); // Obtém a substring até ')'
-                result = resolvingOperation(split, 1); // Resolve a operação
-                str = fillingNewSplittedPart(str, split, result, i); // Substitui a substring na string original
-                i = str.length() - 1; // Move o índice para o final da string
+            // Verifica se alcançou o final da string str
+            if(i == str.length() - 1) { 
+                i = 0; // Reinicia a busca do início da string
+            } else { 
+                i += 1; // Move para o próximo caractere
             }
         }
+        return split; // Retorna a substring encontrada
+    } 
+
+    // Verifica se a expressão está completa
+    private static boolean isComplete(String str) {
+        int count = 0; // Contador de parênteses abertos
+        for(int i = 0; i < str.length(); i++) {
+            if(str.charAt(i) == 40) { // Se encontrar um parêntese aberto
+                count++; // Incrementa o contador
+            }
+            if(count > 1) { // Se encontrar mais de um parêntese aberto
+                return false; // A expressão não está completa
+            }
+        }
+        return true; // A expressão está completa
+    } 
+
+    // Resolve as operações lógicas na expressão
+    private static String logicalOperations(String str) {
+        String split = "", result = ""; // Strings para armazenar a substring e o resultado da operação
+        boolean resp = false; // Flag para indicar se a operação foi resolvida completamente
+        int i = 0; // Índice para percorrer a string str
         
-        return str.charAt(i) + logicalOperations(str, i + 1); // Continua a busca pelos caracteres recursivamente
+        // Enquanto a operação não for resolvida completamente
+        while(!resp) { 
+            split = ""; // Limpa a string split
+            
+            // Verifica se há operações lógicas
+            if(str.charAt(i) == 38 || str.charAt(i) == 124 || str.charAt(i) == 33) {
+                // Obtém a substring a partir do índice atual até o final da string
+                for(int j = i; j < str.length(); j++) {
+                    split += str.charAt(j); // Adiciona o caractere à substring
+                }
+                // Se a expressão estiver completa, resolve a operação
+                if(isComplete(split)) {
+                    split = getSplittedString(split); // Obtém a substring até ')'
+                    result = resolvingOperation(split); // Resolve a operação
+                    str = fillingNewSplittedPart(str, split, result); // Substitui a substring na string original
+                    i = str.length() - 1; // Move o índice para o final da string
+                }
+            }
+            // Move para o próximo caractere
+            if(i != str.length() - 1) {
+                i += 1;
+            }		
+            
+            // Verifica se alcançou o final da string
+            if(i == str.length() - 1) { 
+                i = 0; // Reinicia a busca do início da string
+            }
+            // Verifica se a string possui apenas um caractere
+            if(str.length() == 1) { 
+                resp = true; // A operação foi resolvida completamente
+            } 
+        }		
+        return str; // Retorna a expressão resolvida
     } 
     
     // Substitui caracteres especiais ('a', 'o', 'n') por operadores lógicos ('&', '|', '!')
-    private static String replaceLogicalOperations(String str, int i) {
+    private static String replaceLogicalOperations(String str) {
         String split = ""; // String para armazenar a nova string com os operadores lógicos substituídos
-        
-        // Verifica se a string está vazia ou o índice ultrapassou o tamanho da string
-        if (i >= str.length()) {
-            return ""; // Retorna uma string vazia
+        for(int i = 0; i < str.length(); i++) {
+            // Substitui 'a' por '&', 'o' por '|' e 'n' por '!'
+            if(str.charAt(i) == 97) { 
+                split += "&"; // Adiciona '&' à nova string
+                i+= 2; // Move o índice para o próximo caractere
+            } else if(str.charAt(i) == 111) { 
+                split += "|"; // Adiciona '|' à nova string
+                i += 1; // Move o índice para o próximo caractere
+            } else if(str.charAt(i) == 110) { 
+                split += "!"; // Adiciona '!' à nova string
+                i += 2; // Move o índice para o próximo caractere
+            } else if(str.charAt(i) == 32) {  
+                // Ignora o caractere de espaço em branco
+            } else { 
+                split += str.charAt(i); // Adiciona o caractere à nova string
+            }
         }
-        
-        // Substitui 'a' por '&', 'o' por '|' e 'n' por '!'
-        if (str.charAt(i) == 97) { 
-            split += "&"; // Adiciona '&' à nova string
-            i += 2; // Move o índice para o próximo caractere
-        } else if (str.charAt(i) == 111) { 
-            split += "|"; // Adiciona '|' à nova string
-            i += 1; // Move o índice para o próximo caractere
-        } else if (str.charAt(i) == 110) { 
-            split += "!"; // Adiciona '!' à nova string
-            i += 2; // Move o índice para o próximo caractere
-        } else if (str.charAt(i) == 32) {  
-            // Ignora o caractere de espaço em branco
-        } else { 
-            split += str.charAt(i); // Adiciona o caractere à nova string
-        }
-        
-        return split + replaceLogicalOperations(str, i + 1); // Continua a busca pelos caracteres recursivamente
+        return split; // Retorna a nova string com os operadores lógicos substituídos
     } 
 
-    // Substitui variáveis por seus valores de forma recursiva
-    private static String replaceVariableValues(String str, int i, char A, char B, char C) {
-        if (i >= str.length()) {
-            return ""; // Se atingir o final da string, retorna uma string vazia
-        }
-        
+    // Substitui variáveis por seus valores
+    private static String replaceVariableValues(String str) {
         String split = ""; // String para armazenar a nova string com as variáveis substituídas
+        char A = ' ', B = ' ', C = ' '; // Variáveis para armazenar os valores
+        int i = 0; // Índice para percorrer a string str
         
-        // Substitui as variáveis pelos seus valores
-        if (str.charAt(i) == 65) {
-            split += A; // Adiciona o valor de A à nova string
-        } else if (str.charAt(i) == 66) {
-            split += B; // Adiciona o valor de B à nova string
-        } else if (str.charAt(i) == 67) {
-            split += C; // Adiciona o valor de C à nova string
-        } else {
-            split += str.charAt(i); // Adiciona o caractere à nova string
+        // Determina os valores das variáveis
+        if(str.charAt(0) == 51) {   
+            A = str.charAt(2); // Valor da variável A
+            B = str.charAt(4); // Valor da variável B
+            C = str.charAt(6); // Valor da variável C
+            i = 8; // Move o índice para o próximo caractere
+        } else if(str.charAt(0) == 50) {
+            A = str.charAt(2); // Valor da variável A
+            B = str.charAt(4); // Valor da variável B
+            i = 6; // Move o índice para o próximo caractere
+        } else if(str.charAt(0) == 49) {
+            A = str.charAt(2); // Valor da variável A
+            i = 4; // Move o índice para o próximo caractere
         }
-        
-        return split + replaceVariableValues(str, i + 1, A, B, C); // Continua a busca pelos caracteres recursivamente
+        // Substitui as variáveis pelos seus valores
+        for(int j = i; j < str.length(); j++) {
+            if(str.charAt(j) == 65) { 
+                split += A; // Adiciona o valor de A à nova string
+            } else if(str.charAt(j) == 66) { 
+                split += B; // Adiciona o valor de B à nova string
+            } else if(str.charAt(j) == 67) { 
+                split += C; // Adiciona o valor de C à nova string
+            } else { 
+                split += str.charAt(j); // Adiciona o caractere à nova string
+            }
+        }
+        return split; // Retorna a nova string com as variáveis substituídas
     } 
 
     // Método principal que inicia a resolução da expressão
-    private static String initializer(String str, char A, char B, char C) {
+    private static String initializer(String str) {
         String returned = ""; // String para armazenar o resultado final
         
-        returned = replaceVariableValues(str, 0, A, B, C); // Substitui as variáveis pelos seus valores
-        returned = replaceLogicalOperations(returned, 0); // Substitui os caracteres especiais pelos operadores lógicos
-        returned = logicalOperations(returned, 0); // Resolve as operações lógicas na expressão
+        returned = replaceVariableValues(str); // Substitui as variáveis pelos seus valores
+        returned = replaceLogicalOperations(returned); // Substitui os caracteres especiais pelos operadores lógicos
+        returned = logicalOperations(returned); // Resolve as operações lógicas na expressão
         
         return returned; // Retorna o resultado final da expressão
     } 
@@ -209,18 +240,12 @@ public class Q14_AlgebraRec {
         // Lê as entradas até encontrar o fim da entrada
         do {
             entradas[numeroEntradas] = sc.nextLine(); // Lê a entrada atual
-        } while (!(isFim(entradas[numeroEntradas++]))); // Verifica se é o fim da entrada e incrementa o contador de entradas
+        } while(!(isFim(entradas[numeroEntradas++]))); // Verifica se é o fim da entrada e incrementa o contador de entradas
         numeroEntradas--;  // Decrementa o contador de entradas
 
         // Para cada entrada, resolve a expressão e imprime o resultado
-        for (int i = 0; i < numeroEntradas; i++) {
-            // Extrai os valores das variáveis da entrada atual
-            char A = entradas[i].charAt(2);
-            char B = entradas[i].charAt(4);
-            char C = (entradas[i].charAt(0) == 51) ? entradas[i].charAt(6) : ' ';
-            
-            // Chama o método initializer para resolver a expressão
-            System.out.println(initializer(entradas[i], A, B, C)); 
+        for(int i = 0; i < numeroEntradas; i++) {
+            System.out.println(initializer(entradas[i])); // Chama o método initializer para resolver a expressão
         }
         sc.close();
     }
