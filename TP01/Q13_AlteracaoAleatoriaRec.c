@@ -1,7 +1,6 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdbool.h>
-#include <time.h>
 #include <stdlib.h>
 
 bool isEnd(char *text)
@@ -9,13 +8,14 @@ bool isEnd(char *text)
     return (strlen(text) == 3 && text[0] == 'F' && text[1] == 'I' && text[2] == 'M');
 }
 
-// Função para trocar letras na string
-char* TrocaLetra(char *str, int index, char random1, char random2)
+// Função para trocar letras na string recursivamente
+void TrocaLetraRec(char *str, char *resultado, int index, char random1, char random2)
 {
-    // Caso base: Se atingirmos o final da string, retornamos a string modificada
+    // Caso base: Se atingirmos o final da string, terminamos
     if (str[index] == '\0')
     {
-        return str;
+        resultado[index] = '\0';
+        return;
     }
 
     char caractere = str[index];
@@ -23,29 +23,44 @@ char* TrocaLetra(char *str, int index, char random1, char random2)
     if (caractere == random1)
     {
         // Troca o caractere se for igual ao random1
-        str[index] = random2;
+        resultado[index] = random2;
+    }
+    else 
+    {
+        resultado[index] = caractere;
     }
 
     // Continua para o próximo caractere
-    return TrocaLetra(str, index + 1, random1, random2);
+    TrocaLetraRec(str, resultado, index + 1, random1, random2);
 }
 
 int main()
 {
     char str[1000];
-    scanf(" %[^\r\n]%*c", str);
-
+    char resultado[1000];
+    int count = 0;
+    const int MAX_ITERATIONS = 10000; // Safeguard para evitar loop infinito
     
-    // repetindo o loop enquanto a minha entrada for diferente de FIM, chamando minha funcao isEnd e passando a string como parametro
-    while (!isEnd(str))
+    if (scanf(" %[^\r\n]%*c", str) != 1) {
+        return 1; // Erro na leitura
+    }
+
+    srand(4); // Seed fixo conforme enunciado
+    
+    // repetindo o loop enquanto a minha entrada for diferente de FIM
+    while (!isEnd(str) && count < MAX_ITERATIONS)
     {   
-        srand(time(NULL)); // Semente para a função rand() baseada no tempo atual
-        // Geração aleatória das letras, dentro do while, para cada nova entrada, novas letras serem geradas
-        char random1 = 'a' + rand() % 26; // 'a' + um número aleatório entre 0 e 25
-        char random2 = 'a' + rand() % 26; // 'a' + um número aleatório entre 0 e 25
+        // Geração aleatória das letras usando seed fixa
+        char random1 = 'a' + (abs(rand()) % 26);
+        char random2 = 'a' + (abs(rand()) % 26);
         
-        printf("%s\n", TrocaLetra(str, 0, random1, random2));
-        scanf(" %[^\r\n]%*c", str);
+        TrocaLetraRec(str, resultado, 0, random1, random2);
+        printf("%s\n", resultado);
+        
+        if (scanf(" %[^\r\n]%*c", str) != 1) {
+            break; // Erro ou EOF na leitura
+        }
+        count++;
     }
 
     return 0;
