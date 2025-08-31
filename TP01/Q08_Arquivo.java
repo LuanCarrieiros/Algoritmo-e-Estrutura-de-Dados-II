@@ -1,6 +1,8 @@
 import java.io.*;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.*;
+import java.util.Locale;
 
 public class Q08_Arquivo {
     public static void main(String args[]) throws Exception {
@@ -16,7 +18,9 @@ public class Q08_Arquivo {
             
             // leitura dos valores e escrita no arquivo
             for (i = 0; i < size; i++) {
-                Arq.writeFloat(scanf.nextFloat());
+                String input = scanf.next().replace(',', '.');
+                float value = Float.parseFloat(input);
+                Arq.writeFloat(value);
             }
 
             Arq.close();
@@ -24,12 +28,23 @@ public class Q08_Arquivo {
             // reabrindo o arquivo e lendo de tras para frente
             Arq = new RandomAccessFile("Questao08.txt", "r");
 
-            DecimalFormat formatter = new DecimalFormat();
+            DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.US);
+            symbols.setDecimalSeparator(',');
+            DecimalFormat formatter = new DecimalFormat("0.###", symbols);
 
             for (i = size - 1; i >= 0; i--) {
                 Arq.seek(i * 4); // o tamanho de cada float é de 4 bytes
                 numero = Arq.readFloat();
-                System.out.println(formatter.format(numero));
+                
+                // Se é um número inteiro, mostra sem vírgula
+                if (numero == (int) numero) {
+                    System.out.println((int) numero);
+                } else {
+                    String formatted = formatter.format(numero);
+                    // Remove zeros desnecessários no final
+                    formatted = formatted.replaceAll(",0+$", "");
+                    System.out.println(formatted);
+                }
             }
             
             Arq.close();
