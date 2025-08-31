@@ -1,32 +1,38 @@
 import java.util.*;
+
 public class Q06_Is {
     public static void main(String[] args) 
     {
-        Scanner sc = new Scanner(System.in);
-        String str = sc.nextLine();
+        Scanner scanf = new Scanner(System.in);
+        String str = scanf.nextLine();
 
-		// repetindo o loop enquanto a minha entrada for diferente de FIM, chamando minha funcao isEnd e passando a string como parametro
         while(!isEnd(str))
         {
-			// prints da saída com chamada das funcoes 
             System.out.print(isOnlyVowels(str) ? "SIM " : "NAO ");
-			System.out.print(isOnlyConsonant(str) ? "SIM " : "NAO ");
-			System.out.print(isOnlyInteger(str) ? "SIM " : "NAO ");
-			System.out.print(isOnlyFloat(str) ? "SIM " : "NAO ");
-			System.out.print("\n");
-            str = sc.nextLine();
+            System.out.print(isOnlyConsonant(str) ? "SIM " : "NAO ");
+            System.out.print(isOnlyInteger(str) ? "SIM " : "NAO ");
+            System.out.println(isOnlyFloat(str) ? "SIM" : "NAO");
+            str = scanf.nextLine();
         }
-
-        sc.close();
+        
+        scanf.close();
     }
 
+    /**
+     * Verifica se a string é "FIM"
+     * @param text string a ser verificada
+     * @return true se for "FIM", false caso contrário
+     */
     public static boolean isEnd(String text) 
     {
-        // Verifica se o texto tem comprimento 3 e os caracteres são 'F', 'I', 'M'
         return text.length() == 3 && text.charAt(0) == 'F' && text.charAt(1) == 'I' && text.charAt(2) == 'M';
     }
 
-    //Função para verificar se todos os indices da string sao vogais
+    /**
+     * Verifica se a string contém apenas vogais ASCII (regra 12)
+     * @param str string a ser verificada
+     * @return true se contém apenas vogais, false caso contrário
+     */
 	public static boolean isOnlyVowels(String str)
 	{
 		int length = str.length(); // tamanho da string
