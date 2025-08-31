@@ -23,7 +23,7 @@ Thumbs.db
 *_backup/
 *_tmp/
 *_old/
-tmp/
+
 
 # Test output files
 output/
