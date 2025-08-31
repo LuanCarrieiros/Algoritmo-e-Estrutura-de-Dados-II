@@ -9,23 +9,31 @@ public class Q15_IsRec {
         while(!isEnd(str))
         {
             System.out.print(isOnlyVowels(str, 0) ? "SIM " : "NAO ");
-			System.out.print(isOnlyConsonant(str, 0) ? "SIM " : "NAO ");
-			System.out.print(isOnlyInteger(str, 0) ? "SIM " : "NAO ");
-			System.out.print(isOnlyFloat(str, 0, 0) ? "SIM " : "NAO ");
-			System.out.print("\n");
+            System.out.print(isOnlyConsonant(str, 0) ? "SIM " : "NAO ");
+            System.out.print(isOnlyInteger(str, 0) ? "SIM " : "NAO ");
+            System.out.println(isOnlyFloat(str, 0, 0) ? "SIM" : "NAO");
             str = sc.nextLine();
         }
 
         sc.close();
     }
 
+    /**
+     * Verifica se a string é "FIM"
+     * @param text string a ser verificada
+     * @return true se for "FIM", false caso contrário
+     */
     public static boolean isEnd(String text) 
     {
-        // Verifica se o texto tem comprimento 3 e os caracteres são 'F', 'I', 'M'
         return text.length() == 3 && text.charAt(0) == 'F' && text.charAt(1) == 'I' && text.charAt(2) == 'M';
     }
 
-    //Função para verificar se todos os indices da string sao vogais
+    /**
+     * Verifica se a string contém apenas vogais de forma recursiva
+     * @param str string a ser verificada
+     * @param index índice atual para recursão
+     * @return true se contém apenas vogais, false caso contrário
+     */
 	public static boolean isOnlyVowels(String str, int index)
 	{
 		int length = str.length();
@@ -52,7 +60,12 @@ public class Q15_IsRec {
         }
 	}
 
-    //Função que passa por toda string para ver se todos os valores são consoantes ou não
+    /**
+     * Verifica se a string contém apenas consoantes de forma recursiva
+     * @param str string a ser verificada
+     * @param index índice atual para recursão
+     * @return true se contém apenas consoantes, false caso contrário
+     */
 	public static boolean isOnlyConsonant(String str, int index)
 	{
 
@@ -86,6 +99,12 @@ public class Q15_IsRec {
         }
 	}
 
+    /**
+     * Verifica se a string contém apenas dígitos numéricos de forma recursiva
+     * @param str string a ser verificada
+     * @param index índice atual para recursão
+     * @return true se contém apenas dígitos, false caso contrário
+     */
 	public static boolean isOnlyInteger(String str, int index)
 	{
 		int length = str.length();
@@ -115,10 +134,16 @@ public class Q15_IsRec {
 
 	}
 
+    /**
+     * Verifica se a string representa um número decimal de forma recursiva
+     * @param str string a ser verificada
+     * @param dots número de pontos decimais encontrados
+     * @param index índice atual para recursão
+     * @return true se representa um número decimal válido, false caso contrário
+     */
 	public static boolean isOnlyFloat(String str, int dots, int index)
 	{
 		int length = str.length();
-		boolean result = true;
 		
         if ( length == 0 )
         {
@@ -136,12 +161,11 @@ public class Q15_IsRec {
         }
 	
 		char currentChar = str.charAt(index);
-		result = (currentChar >= '0' && currentChar <= '9'); // retorna verdadeiro se o todos os valores do char em cada index forem de um inteiro
 
-		if(result) // teste para checar se é um ponto ou vírgula
+		if(currentChar >= '0' && currentChar <= '9') // se é dígito
 		{
 			return isOnlyFloat(str, dots, index + 1);
-		} else if (currentChar == '.' || currentChar == ',')
+		} else if (currentChar == '.' || currentChar == ',') // se é separador decimal
         {
             return isOnlyFloat(str, dots + 1, index + 1);
         } else
