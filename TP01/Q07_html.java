@@ -10,26 +10,19 @@ class Q07_html {
     // Função que procura uma string dentro de outra string
     public static int howMuchString(String search, String line) {
         int amount = 0;
-        if (search != null && line != null) {
+        if (search != null && line != null && search.length() > 0) {
             int lengthLine = line.length();
             int lengthSearch = search.length();
 
-            for (int i = 0; i < lengthLine; i++) {
-                int j = 0;
+            for (int i = 0; i <= lengthLine - lengthSearch; i++) {
                 boolean isPresent = true;
-                if (search.charAt(j) == line.charAt(i)) {
-                    j++;
-                    i++;
-                    while (j < lengthSearch && i < lengthLine && isPresent) {
-                        if (search.charAt(j) != line.charAt(i)) {
-                            isPresent = false;
-                        }
-                        j++;
-                        i++;
+                for (int j = 0; j < lengthSearch && isPresent; j++) {
+                    if (search.charAt(j) != line.charAt(i + j)) {
+                        isPresent = false;
                     }
-                    if (isPresent) {
-                        amount++;
-                    }
+                }
+                if (isPresent) {
+                    amount++;
                 }
             }
         }
@@ -66,24 +59,25 @@ class Q07_html {
         return (amount);
     }
 
-    // Função que retorna se o char é consoante minúscula ou não
-    public static boolean isConsonantLower(char letter) {
-        return (('a' < letter && letter <= 'z') && (letter != 'a' &&
-                letter != 'e' && letter != 'i' && letter != 'o' && letter != 'u'
-                && letter != '\u00E1' && letter != '\u00FA' && letter != '\u00E9' && letter != '\u00ED'
-                && letter != '\u00F3' && letter != '\u00E3' && letter != '\u00F5' && letter != '\u00E2'
-                && letter != '\u00EA' && letter != '\u00EE' && letter != '\u00F4' && letter != '\u00FB'
-                && letter != '\u00E0' && letter != '\u00E8' && letter != '\u00EC' && letter != '\u00F2'
-                && letter != '\u00F9'));
+    /**
+     * Verifica se é consoante ASCII (regra 12 do enunciado)
+     * Considera apenas caracteres ASCII entre 'a'-'z' e 'A'-'Z'
+     */
+    public static boolean isConsonantASCII(char letter) {
+        return ((letter >= 'a' && letter <= 'z') || (letter >= 'A' && letter <= 'Z')) &&
+               !(letter == 'a' || letter == 'e' || letter == 'i' || letter == 'o' || letter == 'u' ||
+                 letter == 'A' || letter == 'E' || letter == 'I' || letter == 'O' || letter == 'U');
     }
 
-    // Metodo que conta quantas consoantes minusculas estão presentes na linha
-    public static int howMuchConsonantsLower(String line) {
+    /**
+     * Conta consoantes ASCII conforme regra 12 do enunciado
+     */
+    public static int howMuchConsonants(String line) {
         int amount = 0;
         if (line != null) {
             int length = line.length();
             for (int i = 0; i < length; i++) {
-                if (isConsonantLower(line.charAt(i))) {
+                if (isConsonantASCII(line.charAt(i))) {
                     amount++;
                 }
             }
@@ -96,36 +90,46 @@ class Q07_html {
         URL url;
         InputStream is = null;
         BufferedReader br;
-        String resp = "", line;
+        String resp = "";
+        int lineCount = 0;
+        final int MAX_LINES = 1000; // Limit to prevent infinite reading
 
         try {
+            // Adiciona protocolo se não existir
+            if (!endereco.startsWith("http://") && !endereco.startsWith("https://")) {
+                endereco = "http://" + endereco;
+            }
+            
             url = new URL(endereco);
             is = url.openStream(); // throws an IOException
             br = new BufferedReader(new InputStreamReader(is));
 
-            while ((line = br.readLine()) != null) {
+            String line;
+            while ((line = br.readLine()) != null && lineCount < MAX_LINES) {
                 resp += line + "\n";
+                lineCount++;
             }
-        } catch (MalformedURLException mue) {
-            mue.printStackTrace();
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
+            
+            br.close();
+        } catch (Exception e) {
+            // Qualquer erro - retorna string vazia para não quebrar o processamento
+            return "";
         }
 
         try {
-            is.close();
+            if (is != null) {
+                is.close();
+            }
         } catch (IOException ioe) {
             // nothing to see here
-
         }
 
         return resp;
     }
 
     public static void main(String[] args) {
-
-        String pageName = MyIO.readLine("");
-        String address = MyIO.readString("");
+        java.util.Scanner scanf = new java.util.Scanner(System.in);
+        String linha = scanf.nextLine();
         String html;
 
         // letras acentuadas
@@ -147,7 +151,12 @@ class Q07_html {
         char o_circumflex = (char) 244; // ô
         char u_circumflex = (char) 251; // û
 
-        while (!equals(pageName, "FIM")) {
+        while (!equals(linha, "FIM")) {
+            // Parse da linha: primeira palavra é endereço, resto é nome da página
+            int firstSpace = linha.indexOf(' ');
+            String address = (firstSpace != -1) ? linha.substring(0, firstSpace) : linha;
+            String pageName = (firstSpace != -1) ? linha.substring(firstSpace + 1) : "";
+            
             html = getHtml(address);
             System.out.println("a(" + howMuchChar('a', html) + ") e(" + howMuchChar('e', html) + ") i("
                     + howMuchChar('i', html) + ") o(" + howMuchChar('o', html) + ") u("
@@ -164,15 +173,13 @@ class Q07_html {
                     + howMuchChar(e_circumflex, html) + ") " + i_circumflex + "("
                     + howMuchChar(i_circumflex, html) + ") " + o_circumflex + "("
                     + howMuchChar(o_circumflex, html) + ") " + u_circumflex + "("
-                    + howMuchChar(u_circumflex, html) + ") consoante(" + howMuchConsonantsLower(html)
+                    + howMuchChar(u_circumflex, html) + ") consoante(" + howMuchConsonants(html)
                     + ") <br>(" + howMuchString("<br>", html) + ") <table>("
                     + howMuchString("<table>", html) + ") " + pageName);
 
-            pageName = MyIO.readLine("");
-            if (!equals(pageName, "FIM")) {
-                address = MyIO.readString("");
-            }
-
+            linha = scanf.nextLine();
         }
+        
+        scanf.close();
     }
 }
