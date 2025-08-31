@@ -1,6 +1,13 @@
 import java.util.*;
 
 public class Q03_CifraCesar {
+    
+    /**
+     * Método para aplicar a cifra de César em uma string
+     * @param str string original
+     * @param chave deslocamento a ser aplicado
+     * @return string cifrada
+     */
 
     public static String criptografar(String str, int chave) {
         String cifrado = "";
@@ -25,8 +32,12 @@ public class Q03_CifraCesar {
     }
 
 
+    /**
+     * Verifica se a string é "FIM"
+     * @param text string a ser verificada
+     * @return true se for "FIM", false caso contrário
+     */
     public static boolean isEnd(String text) {
-        // Verifica se o texto tem comprimento 3 e os caracteres são 'F', 'I', 'M'
         return text.length() == 3 && text.charAt(0) == 'F' && text.charAt(1) == 'I' && text.charAt(2) == 'M';
     }
 
