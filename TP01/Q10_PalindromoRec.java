@@ -20,8 +20,13 @@ public class Q10_PalindromoRec {
         scanf.close();
     }
 
-    // Método booleano que retorna verdadeiro ou falso após analisar a string que
-    // recebeu por parâmetro
+    /**
+     * Verifica se uma string é palíndromo de forma recursiva
+     * @param str string a ser verificada
+     * @param start índice inicial
+     * @param end índice final
+     * @return true se for palíndromo, false caso contrário
+     */
     public static boolean isPalindrome(String str, int start, int end) {
         // Caso base: se start for maior ou igual a end, significa que a string foi totalmente verificada
         if (start >= end) {
